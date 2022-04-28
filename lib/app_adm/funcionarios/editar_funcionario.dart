@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:itajubus/app_adm/funcionarios.dart';
+import 'package:itajubus/app_adm/funcionarios/funcionarios.dart';
 import 'package:itajubus/widgets/customFutureBuilder.dart';
-import '../constants.dart';
+import '/../constants.dart';
 
 class EditarFuncionario extends StatefulWidget {
   int id;
@@ -169,8 +169,8 @@ class _EditarFuncionarioState extends State<EditarFuncionario> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: const Text("Sucesso!"),
-                      content: Text("Deletar funcionario '${nome_init}'?"),
+                      title: const Text("Excluir?"),
+                      content: Text("Excluir funcionario '${nome_init}'?"),
                       actions: <Widget>[
                         // define os botões na base do dialogo
                         FlatButton(

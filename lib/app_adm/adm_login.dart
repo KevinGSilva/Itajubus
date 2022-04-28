@@ -21,10 +21,8 @@ class _AdmLoginState extends State<AdmLogin> {
 
   Future admLogin() async {
     var uri = '${url}adm_login.php?cpf=${cpf_get_adm}';
-    print(uri);
     var response = await http.get(Uri.parse(uri));
     var json = convert.jsonDecode(response.body);
-    print(json);
 
     if (json == null) {
       setState(() {

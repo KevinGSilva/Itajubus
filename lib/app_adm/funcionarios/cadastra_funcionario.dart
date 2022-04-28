@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:itajubus/app_adm/editar_funcionario.dart';
-import 'package:itajubus/app_adm/funcionarios.dart';
-import '../constants.dart';
+import 'package:itajubus/app_adm/funcionarios/editar_funcionario.dart';
+import 'package:itajubus/app_adm/funcionarios/funcionarios.dart';
+import '../../constants.dart';
 
 class CadastraFuncionario extends StatefulWidget {
   const CadastraFuncionario({Key? key}) : super(key: key);

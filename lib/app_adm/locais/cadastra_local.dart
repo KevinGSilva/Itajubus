@@ -1,30 +1,33 @@
 import 'dart:convert';
+import 'package:itajubus/app_adm/locais/locais.dart';
+
+import '../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../constants.dart';
 
-class CadastraVeiculo extends StatefulWidget {
-  const CadastraVeiculo({Key? key}) : super(key: key);
+class CadastraLocal extends StatefulWidget {
+  const CadastraLocal({Key? key}) : super(key: key);
 
   @override
-  State<CadastraVeiculo> createState() => _CadastraVeiculoState();
+  State<CadastraLocal> createState() => _CadastraLocalState();
 }
 
-class _CadastraVeiculoState extends State<CadastraVeiculo> {
-  String placa_veiculo = '';
+class _CadastraLocalState extends State<CadastraLocal> {
+  String nome_local = '';
 
-  void cadastraVeiculo() async {
-    var user = {"placa": "${placa_veiculo}"};
+  void cadastraLocal() async {
+    var user = {"nome": "${nome_local}"};
     String data = jsonEncode(user);
-    var uri = '${url}veiculo.php';
-    if (placa_veiculo.length != 7) {
+    var uri = '${url}local.php';
+    var response = await http.post(Uri.parse(uri), body: data);
+    if (nome_local == '') {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           // retorna um objeto do tipo Dialog
           return AlertDialog(
             title: const Text("Erro!"),
-            content: const Text("Insira uma placa válida!"),
+            content: const Text("Insira um local!"),
             actions: <Widget>[
               // define os botões na base do dialogo
               FlatButton(
@@ -38,20 +41,20 @@ class _CadastraVeiculoState extends State<CadastraVeiculo> {
         },
       );
     } else {
-      var response = await http.post(Uri.parse(uri), body: data);
       showDialog(
         context: context,
         builder: (BuildContext context) {
           // retorna um objeto do tipo Dialog
           return AlertDialog(
             title: const Text("Sucesso!"),
-            content: const Text("Veículo cadastrado com sucesso"),
+            content: Text("${nome_local} cadastrado com sucesso"),
             actions: <Widget>[
               // define os botões na base do dialogo
               FlatButton(
                 child: const Text("Ok"),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Locais()));
                 },
               ),
             ],
@@ -66,7 +69,7 @@ class _CadastraVeiculoState extends State<CadastraVeiculo> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
-        title: const Text('Cadastrar veículos'),
+        title: const Text('Cadastrar locais'),
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -76,7 +79,7 @@ class _CadastraVeiculoState extends State<CadastraVeiculo> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/images/veiculo.png',
+                  'assets/images/local_icon.png',
                   width: 150,
                   height: 150,
                 ),
@@ -86,19 +89,19 @@ class _CadastraVeiculoState extends State<CadastraVeiculo> {
                 TextField(
                   onChanged: (text) {
                     setState(() {
-                      placa_veiculo = text;
+                      nome_local = text;
                     });
                   },
                   keyboardType: TextInputType.name,
                   decoration: const InputDecoration(
-                      labelText: 'Placa', border: OutlineInputBorder()),
+                      labelText: 'Nome', border: OutlineInputBorder()),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 ElevatedButton(
-                  onPressed: () => {cadastraVeiculo()},
-                  child: const Text('Cadastrar'),
+                  onPressed: () => {cadastraLocal()},
+                  child: Text('Cadastrar'),
                 )
               ],
             ),
