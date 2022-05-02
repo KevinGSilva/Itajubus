@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:itajubus/models/trajeto_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:itajubus/constants.dart';
+import 'package:itajubus/views/my_home_page.dart';
 
 import '../widgets/customFutureBuilder.dart';
 
@@ -19,6 +20,10 @@ class _mapsBuilderState extends State<mapsBuilder> {
   late Future<Trajeto> _loadTrajeto;
   Set<Marker> markers = Set<Marker>();
   late BitmapDescriptor pinLocationIcon;
+  late double lat1 = -22.424031;
+  late double lat2 = -22.427900;
+  late double lng1 = -45.450108;
+  late double lng2 = -45.448231;
 
   Future<Trajeto> getTrajeto() async {
     const uri = "${url}trajeto.php?id=1";
@@ -33,12 +38,31 @@ class _mapsBuilderState extends State<mapsBuilder> {
   }
 
   Future<void> defineMarkers(Trajeto trajeto) async {
-    late Marker marker = Marker(
-        markerId: new MarkerId('1'),
-        position: LatLng(
-            double.parse(trajeto.latitude), double.parse(trajeto.longitude)));
+    late Marker markerVeiculo = Marker(
+      markerId: new MarkerId('1'),
+      infoWindow: InfoWindow(
+        title: 'Partida: ${trajeto.localInicio}',
+      ),
+      position: LatLng(
+        double.parse(trajeto.latitude),
+        double.parse(trajeto.longitude),
+      ),
+    );
+
+    late Marker markerLocalInicio = Marker(
+      markerId: new MarkerId('2'),
+      position: LatLng(lat1, lng1),
+    );
+
+    late Marker markerLocalFim = Marker(
+      markerId: new MarkerId('3'),
+      position: LatLng(lat2, lng2),
+    );
+
     setState(() {
-      markers.add(marker);
+      markers.add(markerVeiculo);
+      markers.add(markerLocalInicio);
+      markers.add(markerLocalFim);
     });
   }
 
@@ -51,7 +75,15 @@ class _mapsBuilderState extends State<mapsBuilder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => MyHomePage()));
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
         child: CustomFutureBuilder<Trajeto>(
@@ -70,7 +102,7 @@ class _mapsBuilderState extends State<mapsBuilder> {
             );
           },
           onError: (context, error) {
-            return Center(child: Text(error.message));
+            return Center(child: Text('error'));
           },
           onLoading: (context) => Center(child: CircularProgressIndicator()),
         ),

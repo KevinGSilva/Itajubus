@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:itajubus/app_adm/cadastra_funcionario.dart';
+import 'package:itajubus/app_adm/funcionarios/cadastra_funcionario.dart';
 import 'package:itajubus/app_adm/tela_adm.dart';
 import 'package:itajubus/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:itajubus/views/my_home_page.dart';
 import 'dart:convert';
 
 import 'editar_funcionario.dart';

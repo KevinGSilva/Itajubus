@@ -1,30 +1,32 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../constants.dart';
+import 'package:itajubus/app_adm/funcionarios/funcionarios.dart';
+import 'package:itajubus/app_adm/rastreadores/rastreadores.dart';
+import '../../constants.dart';
 
-class CadastraVeiculo extends StatefulWidget {
-  const CadastraVeiculo({Key? key}) : super(key: key);
+class CadastraRastreador extends StatefulWidget {
+  const CadastraRastreador({Key? key}) : super(key: key);
 
   @override
-  State<CadastraVeiculo> createState() => _CadastraVeiculoState();
+  State<CadastraRastreador> createState() => _CadastraRastreadorState();
 }
 
-class _CadastraVeiculoState extends State<CadastraVeiculo> {
-  String placa_veiculo = '';
+class _CadastraRastreadorState extends State<CadastraRastreador> {
+  String observacao = '';
 
-  void cadastraVeiculo() async {
-    var user = {"placa": "${placa_veiculo}"};
+  void cadastraRastreador() async {
+    var user = {"observacao": "${observacao}", "situacao": 0};
     String data = jsonEncode(user);
-    var uri = '${url}veiculo.php';
-    if (placa_veiculo.length != 7) {
+    var uri = '${url}rastreador.php';
+    if (observacao == '') {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           // retorna um objeto do tipo Dialog
           return AlertDialog(
             title: const Text("Erro!"),
-            content: const Text("Insira uma placa válida!"),
+            content: const Text("Insira uma observação!"),
             actions: <Widget>[
               // define os botões na base do dialogo
               FlatButton(
@@ -45,13 +47,14 @@ class _CadastraVeiculoState extends State<CadastraVeiculo> {
           // retorna um objeto do tipo Dialog
           return AlertDialog(
             title: const Text("Sucesso!"),
-            content: const Text("Veículo cadastrado com sucesso"),
+            content: const Text("Rastreador cadastrado com sucesso"),
             actions: <Widget>[
               // define os botões na base do dialogo
               FlatButton(
                 child: const Text("Ok"),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Rastreadores()));
                 },
               ),
             ],
@@ -66,7 +69,7 @@ class _CadastraVeiculoState extends State<CadastraVeiculo> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
-        title: const Text('Cadastrar veículos'),
+        title: const Text('Cadastrar rastreadores'),
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -76,7 +79,7 @@ class _CadastraVeiculoState extends State<CadastraVeiculo> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/images/veiculo.png',
+                  'assets/images/rastreador.png',
                   width: 150,
                   height: 150,
                 ),
@@ -86,18 +89,18 @@ class _CadastraVeiculoState extends State<CadastraVeiculo> {
                 TextField(
                   onChanged: (text) {
                     setState(() {
-                      placa_veiculo = text;
+                      observacao = text;
                     });
                   },
                   keyboardType: TextInputType.name,
                   decoration: const InputDecoration(
-                      labelText: 'Placa', border: OutlineInputBorder()),
+                      labelText: 'Observação', border: OutlineInputBorder()),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 ElevatedButton(
-                  onPressed: () => {cadastraVeiculo()},
+                  onPressed: () => {cadastraRastreador()},
                   child: const Text('Cadastrar'),
                 )
               ],

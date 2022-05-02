@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:itajubus/app_adm/funcionarios.dart';
-import 'package:itajubus/app_motorista/tela_motorista.dart';
-import 'package:itajubus/app_adm/cadastra_funcionario.dart';
-import 'package:itajubus/app_adm/cadastra_local.dart';
-import 'package:itajubus/app_adm/cadastra_rastreador.dart';
-import 'package:itajubus/app_adm/cadastra_rota.dart';
-import 'package:itajubus/app_adm/cadastra_veiculo.dart';
+import 'package:itajubus/app_adm/funcionarios/funcionarios.dart';
+import 'package:itajubus/app_adm/locais/editar_locais.dart';
+import 'package:itajubus/app_adm/locais/cadastra_local.dart';
+import 'package:itajubus/app_adm/locais/locais.dart';
+import 'package:itajubus/app_adm/rastreadores/cadastra_rastreador.dart';
+import 'package:itajubus/app_adm/rastreadores/rastreadores.dart';
+import 'package:itajubus/app_adm/rotas/cadastra_rota.dart';
+import 'package:itajubus/app_adm/rotas/rotas.dart';
+import 'package:itajubus/app_adm/veiculos/cadastra_veiculo.dart';
+import 'package:itajubus/app_adm/veiculos/veiculos.dart';
 import 'package:itajubus/myapp.dart';
 
 class TelaAdm extends StatefulWidget {
@@ -52,7 +55,7 @@ class _TelaAdmState extends State<TelaAdm> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CadastraLocal()));
+                                  builder: (context) => const Locais()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +66,7 @@ class _TelaAdmState extends State<TelaAdm> {
                               height: 100,
                             ),
                             const Text(
-                              'Cadastrar Locais',
+                              'Locais',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
@@ -81,7 +84,7 @@ class _TelaAdmState extends State<TelaAdm> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CadastraRota()));
+                                  builder: (context) => const Rotas()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +95,7 @@ class _TelaAdmState extends State<TelaAdm> {
                               height: 100,
                             ),
                             const Text(
-                              'Cadastrar Trajeto',
+                              'Trajetos',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
@@ -147,7 +150,7 @@ class _TelaAdmState extends State<TelaAdm> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TelaMotorista()));
+                                  builder: (context) => Veiculos()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -181,8 +184,7 @@ class _TelaAdmState extends State<TelaAdm> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CadastraVeiculo()));
+                                  builder: (context) => const Veiculos()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -193,7 +195,7 @@ class _TelaAdmState extends State<TelaAdm> {
                               height: 100,
                             ),
                             const Text(
-                              'Cadastrar Veículos',
+                              'Veículos',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
@@ -211,8 +213,7 @@ class _TelaAdmState extends State<TelaAdm> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CadastraRastreador()));
+                                  builder: (context) => const Rastreadores()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -223,7 +224,7 @@ class _TelaAdmState extends State<TelaAdm> {
                               height: 100,
                             ),
                             const Text(
-                              'Cadastrar rastreador',
+                              'Rastreadores',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],

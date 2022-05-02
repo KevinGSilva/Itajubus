@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:convert' as convert;
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:itajubus/app_adm/funcionarios.dart';
+import 'package:itajubus/app_adm/funcionarios/funcionarios.dart';
 import 'package:itajubus/widgets/customFutureBuilder.dart';
-import '../constants.dart';
+import '/../constants.dart';
 
 class EditarFuncionario extends StatefulWidget {
   int id;
@@ -169,8 +170,8 @@ class _EditarFuncionarioState extends State<EditarFuncionario> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: const Text("Sucesso!"),
-                      content: Text("Deletar funcionario '${nome_init}'?"),
+                      title: const Text("Excluir?"),
+                      content: Text("Excluir funcionario '${nome_init}'?"),
                       actions: <Widget>[
                         // define os botões na base do dialogo
                         FlatButton(
@@ -240,17 +241,23 @@ class _EditarFuncionarioState extends State<EditarFuncionario> {
                     const SizedBox(
                       height: 15,
                     ),
-                    TextFormField(
+                    DateTimePicker(
+                      icon: Icon(Icons.event),
                       initialValue: data_nascimento_init,
-                      onChanged: (text) {
+                      dateMask: 'dd MM yyy',
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2100),
+                      dateLabelText: 'Data de nascimento',
+                      onChanged: (val) {
                         setState(() {
-                          data_nascimento = text;
+                          data_nascimento = val;
                         });
                       },
-                      keyboardType: TextInputType.name,
-                      decoration: const InputDecoration(
-                          labelText: 'Data de nascimento (ano-mês-dia)',
-                          border: OutlineInputBorder()),
+                      validator: (val) {
+                        print('validator ${val}');
+                        return null;
+                      },
+                      onSaved: (val) => print('save ${val}'),
                     ),
                     const SizedBox(
                       height: 15,
