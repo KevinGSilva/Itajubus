@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:itajubus/app_adm/rastreadores/cadastra_rastreador.dart';
-import 'package:itajubus/app_adm/rastreadores/edita_rastreadores.dart';
+import 'package:itajubus/app_adm/rotas/cadastra_rota.dart';
+import 'package:itajubus/app_adm/rotas/edita_rotas.dart';
 import 'package:itajubus/app_adm/tela_adm.dart';
 import 'package:itajubus/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:itajubus/views/my_home_page.dart';
 import 'dart:convert';
 
-class Rastreadores extends StatefulWidget {
-  const Rastreadores({Key? key}) : super(key: key);
+class Rotas extends StatefulWidget {
+  const Rotas({Key? key}) : super(key: key);
 
   @override
-  State<Rastreadores> createState() => _LocaisState();
+  State<Rotas> createState() => _RotasState();
 }
 
-class _LocaisState extends State<Rastreadores> {
-  final dropRastreadorValue = ValueNotifier('');
-  List<dynamic> dropRastreador = [];
-  var id_rastreador;
+class _RotasState extends State<Rotas> {
+  final dropRotaValue = ValueNotifier('');
+  List<dynamic> dropRota = [];
+  var id_rota;
 
-  Future<void> buscaRastreador() async {
-    var uri = '${url}rastreador.php';
+  Future<void> buscaRota() async {
+    var uri = '${url}trajeto_copia.php';
     var response = await http.get(Uri.parse(uri));
-    var rastreador = jsonDecode(response.body);
+    var rota = jsonDecode(response.body);
 
     setState(() {
-      dropRastreador = rastreador;
+      dropRota = rota;
     });
   }
 
@@ -33,7 +32,7 @@ class _LocaisState extends State<Rastreadores> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    buscaRastreador();
+    buscaRota();
   }
 
   @override
@@ -50,7 +49,7 @@ class _LocaisState extends State<Rastreadores> {
                               )));
                 },
                 icon: Icon(Icons.arrow_back)),
-            title: Text("Rastreadores")),
+            title: Text("Trajetos")),
         body: Column(
           children: [
             SingleChildScrollView(
@@ -63,13 +62,13 @@ class _LocaisState extends State<Rastreadores> {
                     children: [
                       Center(
                         child: Image.asset(
-                          'assets/images/rastreador.png',
+                          'assets/images/trajeto_icon.png',
                           width: 200,
                           height: 100,
                         ),
                       ),
                       const Text(
-                        "Selecione um rastreador para editar suas informações, ou adicione um novo rastreador:",
+                        "Selecione um trajeto para ver suas informações, ou adicione um novo trajeto:",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                         textAlign: TextAlign.center,
@@ -78,7 +77,7 @@ class _LocaisState extends State<Rastreadores> {
                         height: 80,
                       ),
                       ValueListenableBuilder(
-                          valueListenable: dropRastreadorValue,
+                          valueListenable: dropRotaValue,
                           builder: (BuildContext context, String value, _) {
                             return SizedBox(
                               width: 400,
@@ -86,18 +85,17 @@ class _LocaisState extends State<Rastreadores> {
                                 menuMaxHeight: 500,
                                 isExpanded: true,
                                 icon: const Icon(Icons.account_box),
-                                hint: const Text('Editar rastreador'),
+                                hint: const Text('Selecione'),
                                 decoration: InputDecoration(
-                                    label: const Text('Observação'),
+                                    label: const Text('Trajetos'),
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(6))),
                                 value: (value.isEmpty) ? null : value,
                                 onChanged: (escolha) {
                                   setState(() {
-                                    dropRastreadorValue.value =
-                                        escolha.toString();
-                                    id_rastreador = dropRastreadorValue.value;
+                                    dropRotaValue.value = escolha.toString();
+                                    id_rota = dropRotaValue.value;
                                   });
 
                                   showDialog(
@@ -106,8 +104,7 @@ class _LocaisState extends State<Rastreadores> {
                                       // retorna um objeto do tipo Dialog
                                       return AlertDialog(
                                         title: const Text("Confirmar"),
-                                        content:
-                                            const Text("Editar rastreador?"),
+                                        content: const Text("Ver rota?"),
                                         actions: <Widget>[
                                           // define os botões na base do dialogo
                                           FlatButton(
@@ -117,8 +114,8 @@ class _LocaisState extends State<Rastreadores> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          EditaRastreador(int.parse(
-                                                              id_rastreador))));
+                                                          EditaRostas(int.parse(
+                                                              id_rota))));
                                             },
                                           ),
                                           FlatButton(
@@ -132,10 +129,10 @@ class _LocaisState extends State<Rastreadores> {
                                     },
                                   );
                                 },
-                                items: dropRastreador
+                                items: dropRota
                                     .map((op) => DropdownMenuItem(
                                           value: op['id'].toString(),
-                                          child: Text(op['observacao']),
+                                          child: Text(op['rota']),
                                         ))
                                     .toList(),
                               ),
@@ -151,7 +148,7 @@ class _LocaisState extends State<Rastreadores> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => CadastraRastreador()));
+                MaterialPageRoute(builder: (context) => CadastraRota()));
           },
           child: const Icon(Icons.add),
         ));

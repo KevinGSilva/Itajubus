@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:itajubus/app_adm/funcionarios/funcionarios.dart';
+import 'package:itajubus/app_adm/rastreadores/rastreadores.dart';
 import '../../constants.dart';
 
 class CadastraRastreador extends StatefulWidget {
@@ -51,7 +53,8 @@ class _CadastraRastreadorState extends State<CadastraRastreador> {
               FlatButton(
                 child: const Text("Ok"),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Rastreadores()));
                 },
               ),
             ],

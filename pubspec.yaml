@@ -34,6 +34,7 @@ dependencies:
   provider:
   dio: ^4.0.6
   flutter_map_tappable_polyline:
+  date_time_picker:
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,5 +1,6 @@
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:itajubus/app_adm/rotas/rotas.dart';
 import '../../constants.dart';
 
 import 'package:flutter/material.dart';
@@ -123,7 +124,8 @@ class _CadastraRotaState extends State<CadastraRota> {
               FlatButton(
                 child: const Text("Ok"),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Rotas()));
                 },
               ),
             ],

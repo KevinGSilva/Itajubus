@@ -4,7 +4,9 @@ import 'package:itajubus/app_adm/locais/editar_locais.dart';
 import 'package:itajubus/app_adm/locais/cadastra_local.dart';
 import 'package:itajubus/app_adm/locais/locais.dart';
 import 'package:itajubus/app_adm/rastreadores/cadastra_rastreador.dart';
+import 'package:itajubus/app_adm/rastreadores/rastreadores.dart';
 import 'package:itajubus/app_adm/rotas/cadastra_rota.dart';
+import 'package:itajubus/app_adm/rotas/rotas.dart';
 import 'package:itajubus/app_adm/veiculos/cadastra_veiculo.dart';
 import 'package:itajubus/app_adm/veiculos/veiculos.dart';
 import 'package:itajubus/myapp.dart';
@@ -82,7 +84,7 @@ class _TelaAdmState extends State<TelaAdm> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CadastraRota()));
+                                  builder: (context) => const Rotas()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +95,7 @@ class _TelaAdmState extends State<TelaAdm> {
                               height: 100,
                             ),
                             const Text(
-                              'Cadastrar Trajeto',
+                              'Trajetos',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
@@ -211,8 +213,7 @@ class _TelaAdmState extends State<TelaAdm> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CadastraRastreador()));
+                                  builder: (context) => const Rastreadores()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -223,7 +224,7 @@ class _TelaAdmState extends State<TelaAdm> {
                               height: 100,
                             ),
                             const Text(
-                              'Cadastrar rastreador',
+                              'Rastreadores',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],

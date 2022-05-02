@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:itajubus/app_motorista/list_trajetos.dart';
 import 'package:itajubus/app_motorista/tela_motorista.dart';
 import '../constants.dart';
 
@@ -12,6 +13,7 @@ class FuncionarioLogin extends StatefulWidget {
 }
 
 class _FuncionarioLoginState extends State<FuncionarioLogin> {
+  late var id_func;
   late var cpf_get_func;
   late var get_senha;
   late var verificaSenha;
@@ -34,6 +36,7 @@ class _FuncionarioLoginState extends State<FuncionarioLogin> {
       setState(() {
         resposta = json;
         verificaSenha = json[0]['senha_login'];
+        id_func = json[0]['id'];
       });
       validaLogin();
     }
@@ -42,8 +45,10 @@ class _FuncionarioLoginState extends State<FuncionarioLogin> {
   Future validaLogin() async {
     if (verificaSenha == get_senha) {
       setState(() {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TelaMotorista()));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ListTrajetos(int.parse(id_func))));
       });
     } else if (resposta == null) {
       showDialog(

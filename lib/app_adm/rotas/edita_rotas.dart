@@ -2,42 +2,52 @@ import 'dart:convert';
 import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:itajubus/app_adm/funcionarios/funcionarios.dart';
-import 'package:itajubus/app_adm/locais/locais.dart';
 import 'package:itajubus/app_adm/rastreadores/rastreadores.dart';
+import 'package:itajubus/app_adm/rotas/rotas.dart';
 import 'package:itajubus/widgets/customFutureBuilder.dart';
 import '/../constants.dart';
 
-class EditaRastreador extends StatefulWidget {
+class EditaRostas extends StatefulWidget {
   int id;
 
-  EditaRastreador(this.id);
+  EditaRostas(this.id);
 
   @override
-  State<EditaRastreador> createState() => _EditarLocaisState();
+  State<EditaRostas> createState() => _EditaRostasState();
 }
 
-class _EditarLocaisState extends State<EditaRastreador> {
-  var _getRastreador;
-  var observacao_init;
-  var observacao;
+class _EditaRostasState extends State<EditaRostas> {
+  var _getRota;
+  var localInicio;
+  var localFim;
+  var funcionario;
+  var veiculo;
+  var idRastreador;
+  var horarioPartida;
+  var horarioChegada;
   var resposta_delete;
 
-  Future getRastreador() async {
-    var uri = "${url}rastreador.php?id=${widget.id}";
+  Future getRota() async {
+    var uri = "${url}trajeto_copia.php?id=${widget.id}";
     var response = await http.get(Uri.parse(uri));
     print(response.body);
     var json = convert.jsonDecode(response.body);
-    print(json[0]['observacao']);
+    print(json[0]['local_inicio']);
 
     setState(() {
-      observacao_init = json[0]['observacao'];
+      localInicio = json[0]['local_inicio'];
+      localFim = json[0]['local_fim'];
+      funcionario = json[0]['funcionario'];
+      veiculo = json[0]['veiculo'];
+      idRastreador = json[0]['id_rastreador'];
+      horarioPartida = json[0]['horario_partida'];
+      horarioChegada = json[0]['horario_chegada'];
     });
 
     return json;
   }
 
-  void editaRastreador() async {
+  /* void EditaRostas() async {
     var rastreador = {"id": widget.id, "observacao": "${observacao}"};
     String data = jsonEncode(rastreador);
     print(data);
@@ -66,10 +76,10 @@ class _EditarLocaisState extends State<EditaRastreador> {
         );
       },
     );
-  }
+  } */
 
-  Future<void> deletaLocal() async {
-    var uri = "${url}rastreador.php?id=${widget.id}";
+  Future<void> deletaRota() async {
+    var uri = "${url}trajeto_copia.php?id=${widget.id}";
     var response = await http.delete(Uri.parse(uri));
     print(response.body);
     resposta_delete = response.body;
@@ -96,14 +106,12 @@ class _EditarLocaisState extends State<EditaRastreador> {
           builder: (BuildContext contexte) {
             return AlertDialog(
               title: Text("Deletado!"),
-              content: Text("Rastreador deletado com sucesso!"),
+              content: Text("Rota deletada com sucesso!"),
               actions: [
                 FlatButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Rastreadores()));
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Rotas()));
                     },
                     child: Text("ok"))
               ],
@@ -117,7 +125,7 @@ class _EditarLocaisState extends State<EditaRastreador> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
-        title: const Text('Editar Veículo'),
+        title: const Text('Trajeto'),
         actions: [
           IconButton(
             onPressed: () {
@@ -126,13 +134,13 @@ class _EditarLocaisState extends State<EditaRastreador> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: const Text("Excluir!"),
-                      content: Text("Excluir rastreador '${observacao}'?"),
+                      content: Text("Excluir rota?"),
                       actions: <Widget>[
                         // define os botões na base do dialogo
                         FlatButton(
                           child: const Text("Sim"),
                           onPressed: () {
-                            deletaLocal();
+                            deletaRota();
                             Navigator.of(context).pop();
                           },
                         ),
@@ -152,11 +160,11 @@ class _EditarLocaisState extends State<EditaRastreador> {
         ],
       ),
       body: CustomFutureBuilder(
-        future: _getRastreador,
+        future: _getRota,
         onEmpty: (context) {
           return Center(child: Text('Não há dados disponiveis'));
         },
-        onComplete: (context, funcionarios) {
+        onComplete: (context, rotas) {
           return SingleChildScrollView(
             child: SizedBox(
               child: Padding(
@@ -168,23 +176,93 @@ class _EditarLocaisState extends State<EditaRastreador> {
                       height: 10,
                     ),
                     TextFormField(
-                      initialValue: observacao_init,
+                      initialValue: localInicio,
                       onChanged: (text) {
-                        setState(() {
-                          observacao = text;
-                        });
+                        setState(() {});
                       },
                       keyboardType: TextInputType.name,
                       decoration: const InputDecoration(
-                          labelText: 'Nome', border: OutlineInputBorder()),
+                          labelText: 'Partida', border: OutlineInputBorder()),
                     ),
                     const SizedBox(
                       height: 15,
                     ),
-                    ElevatedButton(
-                      onPressed: () => {editaRastreador()},
-                      child: Text('Salvar'),
-                    )
+                    TextFormField(
+                      initialValue: localFim,
+                      onChanged: (text) {
+                        setState(() {});
+                      },
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                          labelText: 'Destino', border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      initialValue: funcionario,
+                      onChanged: (text) {
+                        setState(() {});
+                      },
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                          labelText: 'Funcionário',
+                          border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      initialValue: veiculo,
+                      onChanged: (text) {
+                        setState(() {});
+                      },
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                          labelText: 'Veículo', border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      initialValue: idRastreador,
+                      onChanged: (text) {
+                        setState(() {});
+                      },
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                          labelText: 'Rastreador',
+                          border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      initialValue: horarioPartida,
+                      onChanged: (text) {
+                        setState(() {});
+                      },
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                          labelText: 'Horário de partida',
+                          border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      initialValue: horarioChegada,
+                      onChanged: (text) {
+                        setState(() {});
+                      },
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                          labelText: 'Horario de chegada',
+                          border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
                   ],
                 ),
               ),
@@ -203,7 +281,7 @@ class _EditarLocaisState extends State<EditaRastreador> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getRastreador = getRastreador();
+    _getRota = getRota();
   }
 }
 

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:itajubus/app_motorista/funcionario_login.dart';
 import 'dart:convert' as convert;
 import 'package:itajubus/constants.dart';
 
 class TelaMotorista extends StatefulWidget {
-  const TelaMotorista({Key? key}) : super(key: key);
+  int id;
+
+  TelaMotorista(this.id);
 
   @override
   State<TelaMotorista> createState() => _TelaMotoristaState();
@@ -15,17 +18,46 @@ class _TelaMotoristaState extends State<TelaMotorista> {
   var id_rastreador;
   var id_funcionario;
   late int situacao;
+  var txt_situacao = '---';
   var checking = 'assets/images/load.png';
   var status;
-  var textButton = '---';
+  var textButton = 'buscando...';
 
   Future buscaMotorista() async {
-    var uri = '${url}trajeto_copia.php?id=19';
+    var uri = '${url}trajeto_copia.php?id=${widget.id}';
     var response = await http.get(Uri.parse(uri));
+    var resposta = response.body;
+    print(resposta);
+
+    if (resposta == '' || resposta == null) {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // retorna um objeto do tipo Dialog
+          return AlertDialog(
+            title: const Text("Ops!"),
+            content: Text("Você não está escalado para nenhum trajeto"),
+            actions: <Widget>[
+              // define os botões na base do dialogo
+              FlatButton(
+                child: const Text("Ok"),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FuncionarioLogin()));
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     var funcionario = convert.jsonDecode(response.body);
 
     setState(() {
-      id_funcionario = funcionario[0]['id_funcionario'];
+      id_funcionario = funcionario[0]['id'];
       id_rastreador = funcionario[0]['id_rastreador'];
     });
     print('$id_rastreador func $id_funcionario');
@@ -39,9 +71,11 @@ class _TelaMotoristaState extends State<TelaMotorista> {
       if (status == 1) {
         checking = 'assets/images/V_checking.png';
         textButton = 'Desligar';
+        txt_situacao = 'LIGADO';
       } else {
         checking = 'assets/images/X_checking.png';
         textButton = 'Ligar';
+        txt_situacao = 'DESLIGADO';
       }
     });
     print(status);
@@ -55,6 +89,7 @@ class _TelaMotoristaState extends State<TelaMotorista> {
         status = 1;
         checking = 'assets/images/V_checking.png';
         textButton = 'Desligar';
+        txt_situacao = 'LIGADO';
       });
       print(situacao);
     } else {
@@ -63,6 +98,7 @@ class _TelaMotoristaState extends State<TelaMotorista> {
         status = 0;
         checking = 'assets/images/X_checking.png';
         textButton = 'Ligar';
+        txt_situacao = 'DESLIGADO';
       });
       print(situacao);
     }
@@ -77,11 +113,19 @@ class _TelaMotoristaState extends State<TelaMotorista> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Checking')),
+      appBar: AppBar(title: Text('Ativar Rastreador')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              "O rastreador desta rota está ${txt_situacao}. Para iniciar a viagem, o rastreador deve estar LIGADO. Quando chegar ao destino, deixe-o DESLIGADO!",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 100,
+            ),
             Image.asset(
               '$checking',
               width: 150,
