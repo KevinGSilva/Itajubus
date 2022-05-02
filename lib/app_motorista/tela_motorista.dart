@@ -115,29 +115,44 @@ class _TelaMotoristaState extends State<TelaMotorista> {
     return Scaffold(
       appBar: AppBar(title: Text('Ativar Rastreador')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "O rastreador desta rota está ${txt_situacao}. Para iniciar a viagem, o rastreador deve estar LIGADO. Quando chegar ao destino, deixe-o DESLIGADO!",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              textAlign: TextAlign.center,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "O rastreador desta rota está ${txt_situacao}.",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+                const Text(
+                  "Para iniciar a viagem, o rastreador deve estar LIGADO.",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+                const Text(
+                  "Quando chegar ao destino, deixe-o DESLIGADO!",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+                Image.asset(
+                  '$checking',
+                  width: 150,
+                  height: 150,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    updateRastreador();
+                  },
+                  child: Text(textButton),
+                ),
+              ],
             ),
-            SizedBox(
-              height: 100,
-            ),
-            Image.asset(
-              '$checking',
-              width: 150,
-              height: 150,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                updateRastreador();
-              },
-              child: Text(textButton),
-            ),
-          ],
+          ),
         ),
       ),
     );

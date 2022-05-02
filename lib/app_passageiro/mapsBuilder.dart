@@ -40,6 +40,9 @@ class _mapsBuilderState extends State<mapsBuilder> {
   Future<void> defineMarkers(Trajeto trajeto) async {
     late Marker markerVeiculo = Marker(
       markerId: new MarkerId('1'),
+      infoWindow: InfoWindow(
+        title: 'Partida: ${trajeto.localInicio}',
+      ),
       position: LatLng(
         double.parse(trajeto.latitude),
         double.parse(trajeto.longitude),
@@ -99,7 +102,7 @@ class _mapsBuilderState extends State<mapsBuilder> {
             );
           },
           onError: (context, error) {
-            return Center(child: Text(error.message));
+            return Center(child: Text('error'));
           },
           onLoading: (context) => Center(child: CircularProgressIndicator()),
         ),

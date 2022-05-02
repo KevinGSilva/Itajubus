@@ -97,69 +97,72 @@ class _ListTrajetosState extends State<ListTrajetos> {
                     SizedBox(
                       height: 80,
                     ),
-                    ValueListenableBuilder(
-                        valueListenable: dropListaTrajetoValue,
-                        builder: (BuildContext context, String value, _) {
-                          return SizedBox(
-                            width: 400,
-                            child: DropdownButtonFormField(
-                              menuMaxHeight: 500,
-                              isExpanded: true,
-                              icon: const Icon(Icons.account_box),
-                              hint: const Text('Editar listaTrajeto'),
-                              decoration: InputDecoration(
-                                  label: const Text('Nome'),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(6))),
-                              value: (value.isEmpty) ? null : value,
-                              onChanged: (escolha) {
-                                setState(() {
-                                  dropListaTrajetoValue.value =
-                                      escolha.toString();
-                                  id_trajeto = dropListaTrajetoValue.value;
-                                });
+                    SingleChildScrollView(
+                      child: ValueListenableBuilder(
+                          valueListenable: dropListaTrajetoValue,
+                          builder: (BuildContext context, String value, _) {
+                            return SizedBox(
+                              width: 400,
+                              child: DropdownButtonFormField(
+                                menuMaxHeight: 300,
+                                isExpanded: true,
+                                icon: const Icon(Icons.account_box),
+                                hint: const Text('Selecione...'),
+                                decoration: InputDecoration(
+                                    label: const Text('Trajetos'),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(6))),
+                                value: (value.isEmpty) ? null : value,
+                                onChanged: (escolha) {
+                                  setState(() {
+                                    dropListaTrajetoValue.value =
+                                        escolha.toString();
+                                    id_trajeto = dropListaTrajetoValue.value;
+                                  });
 
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    // retorna um objeto do tipo Dialog
-                                    return AlertDialog(
-                                      title: const Text("Confirmar"),
-                                      content:
-                                          const Text("Editar listaTrajeto?"),
-                                      actions: <Widget>[
-                                        // define os botões na base do dialogo
-                                        FlatButton(
-                                          child: const Text("Ok"),
-                                          onPressed: () {
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        TelaMotorista(int.parse(
-                                                            id_trajeto))));
-                                          },
-                                        ),
-                                        FlatButton(
-                                          child: const Text("Cancelar"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                              items: dropListaTrajeto
-                                  .map((op) => DropdownMenuItem(
-                                        value: op['id'].toString(),
-                                        child: Text(op['rota']),
-                                      ))
-                                  .toList(),
-                            ),
-                          );
-                        }),
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      // retorna um objeto do tipo Dialog
+                                      return AlertDialog(
+                                        title: const Text("Confirmar"),
+                                        content: const Text("Iniciar trajeto?"),
+                                        actions: <Widget>[
+                                          // define os botões na base do dialogo
+                                          FlatButton(
+                                            child: const Text("Sim"),
+                                            onPressed: () {
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          TelaMotorista(
+                                                              int.parse(
+                                                                  id_trajeto))));
+                                            },
+                                          ),
+                                          FlatButton(
+                                            child: const Text("Cancelar"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                items: dropListaTrajeto
+                                    .map((op) => DropdownMenuItem(
+                                          value: op['id'].toString(),
+                                          child: Text(op['rota']),
+                                        ))
+                                    .toList(),
+                              ),
+                            );
+                          }),
+                    ),
                   ],
                 ),
               ),
