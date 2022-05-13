@@ -1,4 +1,4 @@
-const String url = 'http://7b31-179-108-23-68.ngrok.io/itabus/';
+const String url = 'http://300d-179-108-21-96.ngrok.io/itabus/';
 
 String urlDef() {
   return url;
