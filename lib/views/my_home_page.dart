@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MapsBuilder2()));
+                                  builder: (context) => TesteCoordenadas()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

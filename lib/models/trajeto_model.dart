@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Trajeto {
   final String id;
   final String rota;
