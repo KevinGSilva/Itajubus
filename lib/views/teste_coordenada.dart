@@ -11,7 +11,7 @@ class TesteCoordenadas extends StatefulWidget {
 
 class _TesteCoordenadasState extends State<TesteCoordenadas> {
   final controller = MapController(
-    location: LatLng(35.68, 51.41),
+    location: LatLng(-22.426134, -45.447911),
   );
 
   bool _darkMode = false;
@@ -19,15 +19,10 @@ class _TesteCoordenadasState extends State<TesteCoordenadas> {
   final markers = [
     LatLng(35.674, 51.41),
     LatLng(35.676, 51.41),
-    LatLng(35.678, 51.41),
-    LatLng(35.68, 51.41),
-    LatLng(35.682, 51.41),
-    LatLng(35.684, 51.41),
-    LatLng(35.686, 51.41),
   ];
 
   void _gotoDefault() {
-    controller.center = LatLng(35.68, 51.41);
+    controller.center = LatLng(-22.426134, -45.447911);
     setState(() {});
   }
 
@@ -100,7 +95,7 @@ class _TesteCoordenadasState extends State<TesteCoordenadas> {
           );
 
           final homeLocation =
-              transformer.fromLatLngToXYCoords(LatLng(35.68, 51.412));
+              transformer.fromLatLngToXYCoords(LatLng(-22.426134, -45.447911));
 
           final homeMarkerWidget =
               _buildMarkerWidget(homeLocation, Colors.black);
@@ -122,6 +117,11 @@ class _TesteCoordenadasState extends State<TesteCoordenadas> {
                   transformer.fromXYCoordsToLatLng(details.localPosition);
 
               final clicked = transformer.fromLatLngToXYCoords(location);
+
+              final locaisMarker =
+                  LatLng(location.latitude, location.longitude);
+
+              markers.add(locaisMarker);
 
               print('${location.longitude}, ${location.latitude}');
               print('${clicked.dx}, ${clicked.dy}');
