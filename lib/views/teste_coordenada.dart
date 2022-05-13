@@ -16,10 +16,7 @@ class _TesteCoordenadasState extends State<TesteCoordenadas> {
 
   bool _darkMode = false;
 
-  final markers = [
-    LatLng(35.674, 51.41),
-    LatLng(35.676, 51.41),
-  ];
+  final markers = [LatLng(0, 0)];
 
   void _gotoDefault() {
     controller.center = LatLng(-22.426134, -45.447911);
