@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:itajubus/app_adm/adm_login.dart';
 import 'package:itajubus/app_motorista/funcionario_login.dart';
 import 'package:itajubus/app_passageiro/mapsBuilder2.dart';
+import 'package:itajubus/views/teste_coordenada.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -106,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const MapsBuilder2()));
+                                  builder: (context) => TesteCoordenadas()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
