@@ -24,9 +24,13 @@ class _mapsBuilderState extends State<mapsBuilder> {
   late double lat2 = -22.427900;
   late double lng1 = -45.450108;
   late double lng2 = -45.448231;
+  late var local_ini_lat;
+  late var local_ini_long;
+  late var local_fim_lat;
+  late var local_fim_long;
 
   Future<Trajeto> getTrajeto() async {
-    const uri = "${url}trajeto.php?id=14";
+    const uri = "${url}trajeto.php?id=25";
     var response = await http.get(Uri.parse(uri));
     Trajeto trajeto = Trajeto.fromJson(jsonDecode(response.body));
     defineMarkers(trajeto);
@@ -50,14 +54,16 @@ class _mapsBuilderState extends State<mapsBuilder> {
     );
 
     late Marker markerLocalInicio = Marker(
-      markerId: new MarkerId('2'),
-      position: LatLng(lat1, lng1),
-    );
+        markerId: new MarkerId('2'),
+        position: LatLng(double.parse(trajeto.localInicioLat),
+            double.parse(trajeto.localInicioLong)),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen));
 
     late Marker markerLocalFim = Marker(
-      markerId: new MarkerId('3'),
-      position: LatLng(lat2, lng2),
-    );
+        markerId: new MarkerId('3'),
+        position: LatLng(double.parse(trajeto.localFimLat),
+            double.parse(trajeto.localFimLong)),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen));
 
     setState(() {
       markers.add(markerVeiculo);
@@ -97,7 +103,7 @@ class _mapsBuilderState extends State<mapsBuilder> {
               initialCameraPosition: CameraPosition(
                   target: LatLng(double.parse(trajeto.latitude),
                       double.parse(trajeto.longitude)),
-                  zoom: 15),
+                  zoom: 14),
               markers: markers,
             );
           },

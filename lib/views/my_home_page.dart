@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itajubus/app_adm/adm_login.dart';
 import 'package:itajubus/app_motorista/funcionario_login.dart';
+import 'package:itajubus/app_passageiro/mapsBuilder.dart';
 import 'package:itajubus/app_passageiro/mapsBuilder2.dart';
 import 'package:itajubus/views/teste_coordenada.dart';
 
@@ -107,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TesteCoordenadas()));
+                                  builder: (context) => mapsBuilder()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
