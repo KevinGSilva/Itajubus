@@ -122,7 +122,7 @@ class _EditarLocaisState extends State<EditarLocais> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
-        title: const Text('Editar Veículo'),
+        title: const Text('Editar local'),
         actions: [
           IconButton(
             onPressed: () {

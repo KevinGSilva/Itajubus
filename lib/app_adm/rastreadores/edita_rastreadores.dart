@@ -117,7 +117,7 @@ class _EditarLocaisState extends State<EditaRastreador> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
-        title: const Text('Editar Veículo'),
+        title: const Text('Editar rastreador'),
         actions: [
           IconButton(
             onPressed: () {
@@ -176,7 +176,8 @@ class _EditarLocaisState extends State<EditaRastreador> {
                       },
                       keyboardType: TextInputType.name,
                       decoration: const InputDecoration(
-                          labelText: 'Nome', border: OutlineInputBorder()),
+                          labelText: 'Observaçao',
+                          border: OutlineInputBorder()),
                     ),
                     const SizedBox(
                       height: 15,

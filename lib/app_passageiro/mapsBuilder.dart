@@ -20,14 +20,16 @@ class _mapsBuilderState extends State<mapsBuilder> {
   late Future<Trajeto> _loadTrajeto;
   Set<Marker> markers = Set<Marker>();
   late BitmapDescriptor pinLocationIcon;
-  late double lat1 = -22.424031;
-  late double lat2 = -22.427900;
-  late double lng1 = -45.450108;
-  late double lng2 = -45.448231;
+
+  var dropTrajeto = [];
+  final dropValueTrajeto = ValueNotifier('');
+
   late var local_ini_lat;
   late var local_ini_long;
   late var local_fim_lat;
   late var local_fim_long;
+
+  late var rota;
 
   Future<Trajeto> getTrajeto() async {
     const uri = "${url}trajeto.php?id=25";
@@ -37,33 +39,44 @@ class _mapsBuilderState extends State<mapsBuilder> {
     return trajeto;
   }
 
+  Future<void> getTrajetos() async {
+    const uri = "${url}trajeto_copia.php";
+    var response = await http.get(Uri.parse(uri));
+    var json = jsonDecode(response.body);
+
+    setState(() {
+      dropTrajeto = json;
+    });
+  }
+
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
   Future<void> defineMarkers(Trajeto trajeto) async {
     late Marker markerVeiculo = Marker(
-      markerId: new MarkerId('1'),
-      infoWindow: InfoWindow(
-        title: 'Partida: ${trajeto.localInicio}',
+      markerId: MarkerId('1'),
+      infoWindow: const InfoWindow(
+        title: 'Veículo',
       ),
       position: LatLng(
         double.parse(trajeto.latitude),
         double.parse(trajeto.longitude),
       ),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
     );
 
     late Marker markerLocalInicio = Marker(
-        markerId: new MarkerId('2'),
+        markerId: MarkerId('2'),
         position: LatLng(double.parse(trajeto.localInicioLat),
             double.parse(trajeto.localInicioLong)),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen));
+        infoWindow: InfoWindow(title: 'Partida: ${trajeto.localInicio}'));
 
     late Marker markerLocalFim = Marker(
-        markerId: new MarkerId('3'),
+        markerId: MarkerId('3'),
         position: LatLng(double.parse(trajeto.localFimLat),
             double.parse(trajeto.localFimLong)),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen));
+        infoWindow: InfoWindow(title: 'Chegada: ${trajeto.localFim}'));
 
     setState(() {
       markers.add(markerVeiculo);
@@ -74,6 +87,7 @@ class _mapsBuilderState extends State<mapsBuilder> {
 
   @override
   void initState() {
+    getTrajetos();
     _loadTrajeto = getTrajeto();
     super.initState();
   }
@@ -82,6 +96,7 @@ class _mapsBuilderState extends State<mapsBuilder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Trajetos'),
         leading: IconButton(
           onPressed: () {
             Navigator.pushReplacement(
@@ -90,27 +105,77 @@ class _mapsBuilderState extends State<mapsBuilder> {
           icon: Icon(Icons.arrow_back),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
-        child: CustomFutureBuilder<Trajeto>(
-          future: _loadTrajeto,
-          onEmpty: (context) {
-            return Center(child: Text('Não há dados disponiveis'));
-          },
-          onComplete: (context, trajeto) {
-            return GoogleMap(
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: CameraPosition(
-                  target: LatLng(double.parse(trajeto.latitude),
-                      double.parse(trajeto.longitude)),
-                  zoom: 14),
-              markers: markers,
-            );
-          },
-          onError: (context, error) {
-            return Center(child: Text('error'));
-          },
-          onLoading: (context) => Center(child: CircularProgressIndicator()),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: ValueListenableBuilder(
+                    valueListenable: dropValueTrajeto,
+                    builder: (BuildContext context, String value, _) {
+                      return SizedBox(
+                        width: 300,
+                        child: DropdownButtonFormField(
+                          menuMaxHeight: 300,
+                          isExpanded: true,
+                          icon: const Icon(Icons.local_library_outlined),
+                          hint: const Text('Selecione o trajeto'),
+                          decoration: InputDecoration(
+                              label: const Text('Trajetos'),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(6))),
+                          value: (value.isEmpty) ? null : value,
+                          onChanged: (escolha) {
+                            setState(() {
+                              dropValueTrajeto.value = escolha.toString();
+                            });
+                          },
+                          items: dropTrajeto
+                              .map((op) => DropdownMenuItem(
+                                    value: op['id'].toString(),
+                                    child: Text(op['rota']),
+                                  ))
+                              .toList(),
+                        ),
+                      );
+                    }),
+              ),
+            ),
+            Center(
+              child: SizedBox(
+                width: 350,
+                height: 500,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 16),
+                  child: CustomFutureBuilder<Trajeto>(
+                    future: _loadTrajeto,
+                    onEmpty: (context) {
+                      return Center(child: Text('Não há dados disponiveis'));
+                    },
+                    onComplete: (context, trajeto) {
+                      return GoogleMap(
+                        onMapCreated: _onMapCreated,
+                        initialCameraPosition: CameraPosition(
+                            target: LatLng(double.parse(trajeto.latitude),
+                                double.parse(trajeto.longitude)),
+                            zoom: 14),
+                        markers: markers,
+                      );
+                    },
+                    onError: (context, error) {
+                      return Center(
+                          child: Text(
+                              'Algo deu errado. Tente novamente mais tarde...'));
+                    },
+                    onLoading: (context) =>
+                        Center(child: CircularProgressIndicator()),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

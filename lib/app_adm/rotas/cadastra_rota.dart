@@ -141,6 +141,13 @@ class _CadastraRotaState extends State<CadastraRota> {
       appBar: AppBar(
         title: const Text('Cadastro de trajetos'),
         elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => Rotas()));
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

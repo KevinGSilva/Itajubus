@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                    width: 170,
+                    width: 330,
                     height: 170,
                     child: Card(
                       color: Colors.white38,
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 170,
+                    width: 330,
                     height: 170,
                     child: Card(
                       color: Colors.white38,
@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 170,
+                    width: 330,
                     height: 170,
                     child: Card(
                       color: Colors.white38,

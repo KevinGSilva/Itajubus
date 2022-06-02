@@ -232,6 +232,7 @@ class _CadastraFuncionarioState extends State<CadastraFuncionario> {
                       senha_login = text;
                     });
                   },
+                  obscureText: true,
                   keyboardType: TextInputType.name,
                   decoration: const InputDecoration(
                       labelText: 'Senha para login',

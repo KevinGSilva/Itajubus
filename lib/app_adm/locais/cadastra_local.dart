@@ -181,15 +181,15 @@ class _CadastraLocalState extends State<CadastraLocal> {
                       final homeLocation = transformer
                           .fromLatLngToXYCoords(LatLng(-22.426134, -45.447911));
 
-                      final homeMarkerWidget =
-                          _buildMarkerWidget(homeLocation, Colors.black);
+                      /* final homeMarkerWidget =
+                          _buildMarkerWidget(homeLocation, Colors.black); */
 
                       final centerLocation = Offset(
                           transformer.constraints.biggest.width / 2,
                           transformer.constraints.biggest.height / 2);
 
-                      final centerMarkerWidget =
-                          _buildMarkerWidget(centerLocation, Colors.purple);
+                      /* final centerMarkerWidget =
+                          _buildMarkerWidget(centerLocation, Colors.purple); */
 
                       return GestureDetector(
                         behavior: HitTestBehavior.opaque,
@@ -251,9 +251,9 @@ class _CadastraLocalState extends State<CadastraLocal> {
                                   );
                                 },
                               ),
-                              homeMarkerWidget,
+                              /* homeMarkerWidget, */
                               ...markerWidgets,
-                              centerMarkerWidget,
+                              /* centerMarkerWidget, */
                             ],
                           ),
                         ),

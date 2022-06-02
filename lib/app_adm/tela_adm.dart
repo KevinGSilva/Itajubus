@@ -29,7 +29,7 @@ class _TelaAdmState extends State<TelaAdm> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pushReplacement(
+            Navigator.push(
                 context, MaterialPageRoute(builder: (context) => MyApp()));
           },
           icon: Icon(Icons.arrow_back),
@@ -46,8 +46,8 @@ class _TelaAdmState extends State<TelaAdm> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                    width: 170,
-                    height: 170,
+                    width: 330,
+                    height: 120,
                     child: Card(
                       color: Colors.white38,
                       child: InkWell(
@@ -63,7 +63,7 @@ class _TelaAdmState extends State<TelaAdm> {
                             Image.asset(
                               'assets/images/local_icon.png',
                               width: 200,
-                              height: 100,
+                              height: 80,
                             ),
                             const Text(
                               'Locais',
@@ -74,48 +74,19 @@ class _TelaAdmState extends State<TelaAdm> {
                       ),
                     ),
                   ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   SizedBox(
-                    width: 170,
-                    height: 170,
+                    width: 330,
+                    height: 120,
                     child: Card(
                       color: Colors.white38,
                       child: InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Rotas()));
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/trajeto_icon.png',
-                              width: 200,
-                              height: 100,
-                            ),
-                            const Text(
-                              'Trajetos',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: 170,
-                    height: 170,
-                    child: Card(
-                      color: Colors.white38,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const Funcionarios()));
@@ -126,42 +97,10 @@ class _TelaAdmState extends State<TelaAdm> {
                             Image.asset(
                               'assets/images/funcionarios.png',
                               width: 200,
-                              height: 100,
+                              height: 80,
                             ),
                             const Text(
-                              'Funcionários',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 170,
-                    height: 170,
-                    child: Card(
-                      color: Colors.white38,
-                      child: InkWell(
-                        onTap: () async {
-                          setState(() {
-                            loading = true;
-                          });
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Veiculos()));
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/find_icon.png',
-                              width: 200,
-                              height: 100,
-                            ),
-                            const Text(
-                              'Localizar',
+                              'Funcionarios',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
@@ -172,11 +111,11 @@ class _TelaAdmState extends State<TelaAdm> {
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 170,
-                    height: 170,
+                    width: 330,
+                    height: 120,
                     child: Card(
                       color: Colors.white38,
                       child: InkWell(
@@ -184,7 +123,7 @@ class _TelaAdmState extends State<TelaAdm> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Veiculos()));
+                                  builder: (context) => Veiculos()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -192,10 +131,10 @@ class _TelaAdmState extends State<TelaAdm> {
                             Image.asset(
                               'assets/images/veiculo.png',
                               width: 200,
-                              height: 100,
+                              height: 80,
                             ),
                             const Text(
-                              'Veículos',
+                              'Veiculos',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
@@ -203,9 +142,14 @@ class _TelaAdmState extends State<TelaAdm> {
                       ),
                     ),
                   ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   SizedBox(
-                    width: 170,
-                    height: 170,
+                    width: 330,
+                    height: 120,
                     child: Card(
                       color: Colors.white38,
                       child: InkWell(
@@ -213,7 +157,7 @@ class _TelaAdmState extends State<TelaAdm> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Rastreadores()));
+                                  builder: (context) => Rastreadores()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -221,10 +165,42 @@ class _TelaAdmState extends State<TelaAdm> {
                             Image.asset(
                               'assets/images/rastreador.png',
                               width: 200,
-                              height: 100,
+                              height: 80,
                             ),
                             const Text(
                               'Rastreadores',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 330,
+                    height: 120,
+                    child: Card(
+                      color: Colors.white38,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Rotas()));
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/trajeto_icon.png',
+                              width: 200,
+                              height: 80,
+                            ),
+                            const Text(
+                              'Trajetos',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
