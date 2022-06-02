@@ -42,7 +42,7 @@ class _AdmLoginState extends State<AdmLogin> {
   Future validaLogin() async {
     if (verificaSenha == get_senha) {
       setState(() {
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => TelaAdm(

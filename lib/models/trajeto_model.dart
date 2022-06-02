@@ -1,12 +1,14 @@
-import 'dart:ffi';
-
 class Trajeto {
   final String id;
   final String rota;
   final String idLocalidadeInicio;
   final String localInicio;
+  final String localInicioLat;
+  final String localInicioLong;
   final String idLocalidadeFim;
   final String localFim;
+  final String localFimLat;
+  final String localFimLong;
   final String idFuncionario;
   final String funcionario;
   final String idVeiculo;
@@ -22,8 +24,12 @@ class Trajeto {
       required this.rota,
       required this.idLocalidadeInicio,
       required this.localInicio,
+      required this.localInicioLat,
+      required this.localInicioLong,
       required this.idLocalidadeFim,
       required this.localFim,
+      required this.localFimLat,
+      required this.localFimLong,
       required this.idFuncionario,
       required this.funcionario,
       required this.idVeiculo,
@@ -40,8 +46,12 @@ class Trajeto {
       rota: json['rota'] ?? '',
       idLocalidadeInicio: json['id_localidade_inicio'] ?? 0,
       localInicio: json['local_inicio'] ?? '',
+      localInicioLat: json['local_ini_lat'] ?? '',
+      localInicioLong: json['local_ini_long'] ?? '',
       idLocalidadeFim: json['id_localidade_fim'] ?? 0,
       localFim: json['local_fim'] ?? '',
+      localFimLat: json['local_fim_lat'] ?? '',
+      localFimLong: json['local_fim_long'] ?? '',
       idFuncionario: json['id_funcionario'] ?? 0,
       funcionario: json['funcionario'] ?? '',
       idVeiculo: json['id_veiculo'] ?? 0,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:itajubus/app_adm/adm_login.dart';
-import 'package:itajubus/app_adm/funcionarios/cadastra_funcionario.dart';
 import 'package:itajubus/app_motorista/funcionario_login.dart';
 import 'package:itajubus/app_passageiro/mapsBuilder.dart';
 import 'package:itajubus/app_passageiro/mapsBuilder2.dart';
@@ -31,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                    width: 170,
+                    width: 330,
                     height: 170,
                     child: Card(
                       color: Colors.white38,
@@ -65,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 170,
+                    width: 330,
                     height: 170,
                     child: Card(
                       color: Colors.white38,
@@ -100,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 170,
+                    width: 330,
                     height: 170,
                     child: Card(
                       color: Colors.white38,
@@ -109,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MapsBuilder2()));
+                                  builder: (context) => mapsBuilder()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

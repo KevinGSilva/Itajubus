@@ -32,13 +32,13 @@ class _MapsBuilder2State extends State<MapsBuilder2> {
           MapPicker(
             // pass icon widget
             iconWidget: SvgPicture.asset(
-              "assets/location_icon.svg",
-              height: 60,
+              "assets/images/location_icon.svg",
+              height: 20,
             ),
             //add map picker controller
             mapPickerController: mapPickerController,
             child: GoogleMap(
-              myLocationEnabled: true,
+              myLocationEnabled: false,
               zoomControlsEnabled: false,
               // hide location button
               myLocationButtonEnabled: false,
@@ -50,8 +50,8 @@ class _MapsBuilder2State extends State<MapsBuilder2> {
               },
               onCameraMoveStarted: () {
                 // notify map is moving
-                mapPickerController.mapMoving!();
-                textController.text = "checking ...";
+                /* mapPickerController.mapMoving!();
+                textController.text = "checking ..."; */
               },
               onCameraMove: (cameraPosition) {
                 this.cameraPosition = cameraPosition;

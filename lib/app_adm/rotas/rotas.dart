@@ -68,7 +68,7 @@ class _RotasState extends State<Rotas> {
                         ),
                       ),
                       const Text(
-                        "Selecione um trajeto para ver suas informações, ou adicione um novo trajeto:",
+                        "Selecione um trajeto para ver suas informações ou deletar, ou adicione um novo trajeto:",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                         textAlign: TextAlign.center,
@@ -147,7 +147,7 @@ class _RotasState extends State<Rotas> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushReplacement(context,
+            Navigator.push(context,
                 MaterialPageRoute(builder: (context) => CadastraRota()));
           },
           child: const Icon(Icons.add),

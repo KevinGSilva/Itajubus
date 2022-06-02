@@ -119,7 +119,9 @@ class _FuncionarioLoginState extends State<FuncionarioLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Login motorista'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Center(

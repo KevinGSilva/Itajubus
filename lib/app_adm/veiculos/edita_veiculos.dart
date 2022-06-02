@@ -30,6 +30,7 @@ class _EditarLocaisState extends State<EditarVeiculos> {
   var matricula_init;
   var senha_init;
   var resposta_delete;
+  var rotas_usadas;
 
   Future getVeiculo() async {
     var uri = "${url}veiculo.php?id=${widget.id}";
@@ -40,6 +41,7 @@ class _EditarLocaisState extends State<EditarVeiculos> {
 
     setState(() {
       placa_init = json[0]['placa'];
+      rotas_usadas = json[0]['rotas'];
     });
 
     return json;
@@ -66,8 +68,8 @@ class _EditarLocaisState extends State<EditarVeiculos> {
             FlatButton(
               child: const Text("Ok"),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) => Locais()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Veiculos()));
               },
             ),
           ],
@@ -187,10 +189,14 @@ class _EditarLocaisState extends State<EditarVeiculos> {
                     const SizedBox(
                       height: 15,
                     ),
-                    ElevatedButton(
-                      onPressed: () => {EditarVeiculos()},
-                      child: Text('Salvar'),
-                    )
+                    Text(
+                      'O veículo selecionado está sendo usado por $rotas_usadas rotas',
+                      style: TextStyle(
+                        color: Colors.lightBlue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -201,6 +207,12 @@ class _EditarLocaisState extends State<EditarVeiculos> {
           return Center(child: Text((error).toString()));
         },
         onLoading: (context) => Center(child: CircularProgressIndicator()),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          EditarVeiculos();
+        },
+        child: const Icon(Icons.save),
       ),
     );
   }

@@ -97,7 +97,8 @@ class _EditarFuncionarioState extends State<EditarFuncionario> {
         // retorna um objeto do tipo Dialog
         return AlertDialog(
           title: const Text("Sucesso!"),
-          content: Text("Funcionario '${nome_init}' atualizado com sucesso"),
+          content:
+              Text("Funcionario '${nome_funcionario}' atualizado com sucesso"),
           actions: <Widget>[
             // define os botões na base do dialogo
             FlatButton(
@@ -285,8 +286,7 @@ class _EditarFuncionarioState extends State<EditarFuncionario> {
                       },
                       obscureText: true,
                       decoration: const InputDecoration(
-                          labelText:
-                              'Mudar senha. Ou deixe em branco para manter.',
+                          labelText: 'Senha: (Modifique para alterar a senha)',
                           border: OutlineInputBorder()),
                     ),
                     const SizedBox(
