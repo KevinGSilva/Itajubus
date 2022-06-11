@@ -8,6 +8,8 @@ import 'package:itajubus/views/my_home_page.dart';
 
 import '../widgets/customFutureBuilder.dart';
 
+//-22.419149  -45.454725
+
 class mapsBuilder extends StatefulWidget {
   const mapsBuilder({Key? key}) : super(key: key);
 
@@ -32,7 +34,7 @@ class _mapsBuilderState extends State<mapsBuilder> {
   late var rota;
 
   Future<Trajeto> getTrajeto() async {
-    const uri = "${url}trajeto.php?id=25";
+    const uri = "${url}trajeto.php?id=1";
     var response = await http.get(Uri.parse(uri));
     Trajeto trajeto = Trajeto.fromJson(jsonDecode(response.body));
     defineMarkers(trajeto);
@@ -105,78 +107,76 @@ class _mapsBuilderState extends State<mapsBuilder> {
           icon: Icon(Icons.arrow_back),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: ValueListenableBuilder(
-                    valueListenable: dropValueTrajeto,
-                    builder: (BuildContext context, String value, _) {
-                      return SizedBox(
-                        width: 300,
-                        child: DropdownButtonFormField(
-                          menuMaxHeight: 300,
-                          isExpanded: true,
-                          icon: const Icon(Icons.local_library_outlined),
-                          hint: const Text('Selecione o trajeto'),
-                          decoration: InputDecoration(
-                              label: const Text('Trajetos'),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(6))),
-                          value: (value.isEmpty) ? null : value,
-                          onChanged: (escolha) {
-                            setState(() {
-                              dropValueTrajeto.value = escolha.toString();
-                            });
-                          },
-                          items: dropTrajeto
-                              .map((op) => DropdownMenuItem(
-                                    value: op['id'].toString(),
-                                    child: Text(op['rota']),
-                                  ))
-                              .toList(),
-                        ),
-                      );
-                    }),
-              ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: ValueListenableBuilder(
+                  valueListenable: dropValueTrajeto,
+                  builder: (BuildContext context, String value, _) {
+                    return SizedBox(
+                      width: 300,
+                      child: DropdownButtonFormField(
+                        menuMaxHeight: 300,
+                        isExpanded: true,
+                        icon: const Icon(Icons.local_library_outlined),
+                        hint: const Text('Selecione o trajeto'),
+                        decoration: InputDecoration(
+                            label: const Text('Trajetos'),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6))),
+                        value: (value.isEmpty) ? null : value,
+                        onChanged: (escolha) {
+                          setState(() {
+                            dropValueTrajeto.value = escolha.toString();
+                          });
+                        },
+                        items: dropTrajeto
+                            .map((op) => DropdownMenuItem(
+                                  value: op['id'].toString(),
+                                  child: Text(op['rota']),
+                                ))
+                            .toList(),
+                      ),
+                    );
+                  }),
             ),
-            Center(
-              child: SizedBox(
-                width: 350,
-                height: 500,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0, vertical: 16),
-                  child: CustomFutureBuilder<Trajeto>(
-                    future: _loadTrajeto,
-                    onEmpty: (context) {
-                      return Center(child: Text('Não há dados disponiveis'));
-                    },
-                    onComplete: (context, trajeto) {
-                      return GoogleMap(
-                        onMapCreated: _onMapCreated,
-                        initialCameraPosition: CameraPosition(
-                            target: LatLng(double.parse(trajeto.latitude),
-                                double.parse(trajeto.longitude)),
-                            zoom: 14),
-                        markers: markers,
-                      );
-                    },
-                    onError: (context, error) {
-                      return Center(
-                          child: Text(
-                              'Algo deu errado. Tente novamente mais tarde...'));
-                    },
-                    onLoading: (context) =>
-                        Center(child: CircularProgressIndicator()),
-                  ),
+          ),
+          Center(
+            child: SizedBox(
+              width: 350,
+              height: 430,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
+                child: CustomFutureBuilder<Trajeto>(
+                  future: _loadTrajeto,
+                  onEmpty: (context) {
+                    return Center(child: Text('Não há dados disponiveis'));
+                  },
+                  onComplete: (context, trajeto) {
+                    return GoogleMap(
+                      onMapCreated: _onMapCreated,
+                      initialCameraPosition: CameraPosition(
+                          target: LatLng(double.parse(trajeto.latitude),
+                              double.parse(trajeto.longitude)),
+                          zoom: 14),
+                      markers: markers,
+                    );
+                  },
+                  onError: (context, error) {
+                    return Center(
+                        child: Text(
+                            'Algo deu errado. Tente novamente mais tarde...'));
+                  },
+                  onLoading: (context) =>
+                      Center(child: CircularProgressIndicator()),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

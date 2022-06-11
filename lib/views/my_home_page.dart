@@ -105,10 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.white38,
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => mapsBuilder()));
+                                  builder: (context) => mapsBuilder2()));
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

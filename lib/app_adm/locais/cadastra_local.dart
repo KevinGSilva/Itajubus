@@ -88,7 +88,7 @@ class _CadastraLocalState extends State<CadastraLocal> {
   }
 
   void _onDoubleTap() {
-    controller.zoom += 0.5;
+    markers.clear();
     setState(() {});
   }
 
@@ -206,7 +206,11 @@ class _CadastraLocalState extends State<CadastraLocal> {
                           final locaisMarker =
                               LatLng(location.latitude, location.longitude);
 
-                          markers.add(locaisMarker);
+                          if (markers.length >= 1) {
+                            markers.clear();
+                          } else {
+                            markers.add(locaisMarker);
+                          }
 
                           setState(() {
                             longitude_local = location.longitude;
