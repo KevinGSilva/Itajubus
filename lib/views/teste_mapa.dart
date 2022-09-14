@@ -90,7 +90,7 @@ class _TesteMapaState extends State<TesteMapa> {
   Widget build(BuildContext context) {
     while (mapa == null) {}
     return Scaffold(
-      appBar: AppBar(title: const Text('Rastrear')),
+      appBar: AppBar(title: const Text('Rastrearr')),
       body: SingleChildScrollView(
         child: Column(
           children: [
